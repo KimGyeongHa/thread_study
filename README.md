@@ -59,7 +59,7 @@
 
 
 
-# JAVA
+# THREAD시 이용하는 CLASS 또는 키워드
 
 ## java.util.concurrent
 
