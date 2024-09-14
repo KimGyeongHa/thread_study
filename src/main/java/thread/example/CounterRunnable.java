@@ -1,4 +1,4 @@
-package org.example;
+package thread.example;
 
 public class CounterRunnable {
     static int cnt = 1;

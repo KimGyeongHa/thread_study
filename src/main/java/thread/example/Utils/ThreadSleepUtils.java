@@ -1,4 +1,4 @@
-package org.example.Utils;
+package thread.example.Utils;
 
 public abstract class ThreadSleepUtils {
      public static void sleep(int sleepTimes) {

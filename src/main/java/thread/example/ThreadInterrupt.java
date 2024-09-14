@@ -1,4 +1,4 @@
-package org.example;
+package thread.example;
 
 import java.util.Queue;
 import java.util.Scanner;

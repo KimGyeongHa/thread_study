@@ -1,4 +1,4 @@
-package org.example;
+package thread.example;
 
 public class ThreadBasicTest {
     public static void main(String[] args) {
