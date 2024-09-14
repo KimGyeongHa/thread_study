@@ -31,6 +31,10 @@
 	
 	Thread 상속보다 Runnable을 상속하여 사용하는 것이 좋다.
 
+	Thread가 runnable일떄 운영체제 스케줄링 상태
+	1. 실행상태(running) : 스레드 cpu에서 실제로 실행 중
+	2. 실행대기상태(ready) : 스레드가 준비되었지만, 스케줄링 큐에 대기중인상태
+
 ## THREAD 상태
 
 	new : 스레드가 아직 실행되지 않은 상태
@@ -47,3 +51,23 @@
 ## THREAD INTERRUPT
 
 	실행중인 쓰레드를 강제적으로 종료하기 위하여 사용
+
+ ## THREAD Yield
+
+	Runnable 상태를 유지하면서 다른 thread에 우선권을 양보하며 강제성은 없다.
+	JVM과 OS가 우선순위를 결정한다.
+
+
+
+# JAVA
+
+## java.util.concurrent
+
+	동시성을 효율적으로 관리하기 위한 유틸리티를 제공하는 클래스
+
+
+## volatile  
+
+	여러 스레드가 동시에 접근할 때 사용하는 키워드
+
+ 
