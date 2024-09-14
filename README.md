@@ -29,7 +29,7 @@
 	daemonThread 는 user thread 사용 시 보조적인 일을 할 떄 사용한다.
 	method가 모두 실행 시 daemonThread가 모두 실행되지 않아도 종료가 된다.
 	
-	Thread 상속보다 Runnable을 상속하여 사용하는 것이 좋다.
+	Thread 상속보다 Runnable을 사용하는 것이 좋다.
 
 	Thread가 runnable일떄 운영체제 스케줄링 상태
 	1. 실행상태(running) : 스레드 cpu에서 실제로 실행 중
