@@ -20,30 +20,30 @@
 
 ## THREAD 작업 시 
 
-IO작업(데이터베이스 쿼리처리, 파일읽기/쓰기,네트워크 통신, 사용자 입력 처리)이 완료될 떄 까지 CPU는 사용하지않는다.
-
-작업 시 CPU보다 많은 thread를 생성해야 한다.
-
-thread 수 만큼 stack이 생성된다.
-
-daemonThread 는 user thread 사용 시 보조적인 일을 할 떄 사용한다.
-method가 모두 실행 시 daemonThread가 모두 실행되지 않아도 종료가 된다.
-
-Thread 상속보다 Runnable을 상속하여 사용하는 것이 좋다.
+	IO작업(데이터베이스 쿼리처리, 파일읽기/쓰기,네트워크 통신, 사용자 입력 처리)이 완료될 떄 까지 CPU는 사용하지않는다.
+	
+	작업 시 CPU보다 많은 thread를 생성해야 한다.
+	
+	thread 수 만큼 stack이 생성된다.
+	
+	daemonThread 는 user thread 사용 시 보조적인 일을 할 떄 사용한다.
+	method가 모두 실행 시 daemonThread가 모두 실행되지 않아도 종료가 된다.
+	
+	Thread 상속보다 Runnable을 상속하여 사용하는 것이 좋다.
 
 ## THREAD 상태
 
-new : 스레드가 아직 실행되지 않은 상태
-runnable : 실행중이거나 실행 준비가 된 상태
-bocked : 동기화 락을 기다리는상태
-wating : 완료되기를 기다리는 상태
-timed_wating : 일정시간 기다리는 상태
-terminated : 실행을 마친상태
+	new : 스레드가 아직 실행되지 않은 상태
+	runnable : 실행중이거나 실행 준비가 된 상태
+	bocked : 동기화 락을 기다리는상태
+	wating : 완료되기를 기다리는 상태
+	timed_wating : 일정시간 기다리는 상태
+	terminated : 실행을 마친상태
 
 ## THREAD JOIN
 
-이전 작업이 끝날 떄 까지 대기
+	이전 작업이 끝날 떄 까지 대기
 
 ## THREAD INTERRUPT
 
-실행중인 쓰레드를 강제적으로 종료하기 위하여 사용
+	실행중인 쓰레드를 강제적으로 종료하기 위하여 사용
