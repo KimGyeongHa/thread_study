@@ -57,7 +57,7 @@
 	Runnable 상태를 유지하면서 다른 thread에 우선권을 양보하며 강제성은 없다.
 	JVM과 OS가 우선순위를 결정한다.
 
-
+***
 
 # THREAD시 이용하는 CLASS 또는 키워드
 
