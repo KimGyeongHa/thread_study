@@ -1,13 +1,12 @@
 package thread.example;
 
-import thread.example.BankAccount;
 
 public class BankAccountTask implements Runnable{
 
-    private BankAccount account;
+    private BankAccountMethod account;
     private int amount;
 
-    public BankAccountTask(BankAccount account, int amount) {
+    public BankAccountTask(BankAccountMethod account, int amount) {
         this.account = account;
         this.amount = amount;
     }
