@@ -1,7 +1,5 @@
 package thread.example;
 
-import thread.example.Utils.ThreadSleepUtils;
-
 import static thread.example.Utils.ThreadSleepUtils.*;
 
 public class BankAccount implements BankAccountMethod{
