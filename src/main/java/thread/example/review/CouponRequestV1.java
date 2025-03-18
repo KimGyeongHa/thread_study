@@ -30,9 +30,6 @@ public class CouponRequestV1 implements CouponRequestMethod{
 
     @Override
     public String toString() {
-        return "CouponRequestV1{" +
-                "couponRequests=" + couponRequests +
-                ", max=" + max +
-                '}';
+        return couponRequests.toString();
     }
 }

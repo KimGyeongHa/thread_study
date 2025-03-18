@@ -102,6 +102,18 @@
 
  	여러 스레드가 동시에 접근하면 데이터불일치나 예상치 못한 동작이
 	발생할 수 있는 위험이 있는 코드부분
+  
+  # sleep, wait, notify
+
+    sleep은 lock을 반납하지 않고 대기.
+
+    wait는 lock을 반납 후 wating상태가 되며, notify를 통해 wating중인 값을 랜덤으로 꺠운다.
+
+    notify는 해당 값이 로직이 실행여부에 상관없이 나와 비효율적으로 작동할 수 있으므로 notifyAll을 사용하여 기아문제 해결가능.
+
+    notifyAll은 wating중인 모든 값을 blocked상태로 만들고 lock을 먼저 차지한 값이 작동하면 나머지는 wating으로, 미작동 시
+
+    lock반납 후 blocekd상태가 됨.
 
  ***
 
