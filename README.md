@@ -75,6 +75,7 @@
 	동시성 문제를 해결가능
 	메모리 가시성 문제도 synchronized안에서는 해결됨.
 	여러개의 쓰레드가 하나의 인스턴스에 접근 시 락을 먼저 가진 쓰레드에서 먼저 실행.
+ 	Monitor lock 사용
 
  ## ReentrantLock Class(LockSupport클래스가 내부동작에 활용 ) 
 
