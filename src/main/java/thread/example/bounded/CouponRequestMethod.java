@@ -1,6 +1,4 @@
-package thread.example.review;
-
-import java.util.Queue;
+package thread.example.bounded;
 
 public interface CouponRequestMethod {
 

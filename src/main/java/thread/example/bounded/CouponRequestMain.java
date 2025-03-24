@@ -1,4 +1,4 @@
-package thread.example.review;
+package thread.example.bounded;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 public class CouponRequestMain {
 
     public static void main(String[] args) {
-        CouponRequestMethod method = new CouponRequestV5(2);
+        CouponRequestMethod method = new CouponRequestBlockingQueue(2);
         productFirst(method);
         //customerFirst(method);
     }
@@ -14,6 +14,7 @@ public class CouponRequestMain {
     private static void productFirst(CouponRequestMethod method) {
         List<Thread> threads = new ArrayList<Thread>();
         product(method, threads);
+        couponStatus(threads);
         customer(method, threads);
         couponStatus(threads);
     }

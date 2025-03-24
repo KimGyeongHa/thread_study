@@ -1,4 +1,4 @@
-package thread.example.review;
+package thread.example.bounded;
 
 public class CustomerTask implements Runnable {
 

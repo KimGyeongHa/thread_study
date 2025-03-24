@@ -1,4 +1,4 @@
-package thread.example.review;
+package thread.example.bounded;
 
 public class ProducerTask implements Runnable {
 
@@ -12,7 +12,7 @@ public class ProducerTask implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("[쿠폰 생성] : " + request);
         method.put(request);
+        System.out.println("[쿠폰 생성] : " + request);
     }
 }
