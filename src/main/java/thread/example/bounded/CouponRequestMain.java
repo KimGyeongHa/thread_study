@@ -6,9 +6,9 @@ import java.util.List;
 public class CouponRequestMain {
 
     public static void main(String[] args) {
-        CouponRequestMethod method = new CouponRequestBlockingQueue(2);
-        productFirst(method);
-        //customerFirst(method);
+        CouponRequestMethod method = new CouponRequestBlockingQueueV3(2);
+        //productFirst(method);
+        customerFirst(method);
     }
 
     private static void productFirst(CouponRequestMethod method) {

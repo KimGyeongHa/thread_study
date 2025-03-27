@@ -46,11 +46,11 @@
 
 ## THREAD JOIN
 
-	이전 작업이 끝날 떄 까지 대기
+	해당 THREAD 작업이 끝날 떄 까지 대기
 
 ## THREAD INTERRUPT
 
-	실행중인 쓰레드를 강제적으로 종료하기 위하여 사용
+	실행중인 쓰레드를 강제적으로 종료하기 위한 신호를 보내는 메서드
 
  ## THREAD Yield
 
@@ -77,7 +77,7 @@
 	여러개의 쓰레드가 하나의 인스턴스에 접근 시 락을 먼저 가진 쓰레드에서 먼저 실행.
  	Monitor lock 사용
 
- ## ReentrantLock Class(LockSupport클래스가 내부동작에 활용 ) 
+ ## ReentrantLock Class(LockSupport 클래스가 내부동작에 활용 ) 
 
 	lock interface를 상속받아 synchronized를 편하게 다룰 수 있는 구현체이다.
 
@@ -96,6 +96,8 @@
 	주로 컨텍스트 스위칭이 일어나는 과정에서 반영되지만 100%는 아니다.
 	
 	volatile 캐시메모리에 접근하지 않고 메인메모리를 바로 사용하여 가시성 문제를 해결할 수 있다.
+    단, 복합 연산에 관한 값은 보장되지 않음.
+    
  
   ***
 
@@ -104,7 +106,7 @@
  	여러 스레드가 동시에 접근하면 데이터불일치나 예상치 못한 동작이
 	발생할 수 있는 위험이 있는 코드부분
   
-  # sleep, wait, notify
+  # Monitor lock 사용 시 sleep, wait, notify
 
     sleep은 lock을 반납하지 않고 대기.
 
@@ -115,6 +117,8 @@
     notifyAll은 wating중인 모든 값을 blocked상태로 만들고 lock을 먼저 차지한 값이 작동하면 나머지는 wating으로, 미작동 시
 
     lock반납 후 blocekd상태가 됨.
+
+  # ReentrantLock, Condition 
 
  ***
 
