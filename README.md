@@ -77,15 +77,7 @@
 	여러개의 쓰레드가 하나의 인스턴스에 접근 시 락을 먼저 가진 쓰레드에서 먼저 실행.
  	Monitor lock 사용
 
- ## ReentrantLock Class(LockSupport 클래스가 내부동작에 활용 ) 
 
-	lock interface를 상속받아 synchronized를 편하게 다룰 수 있는 구현체이다.
-
- 	1. lock
-  	thread가 실행 중이라면 다른 thread가 접근하지 못하게 해준다.
-	
- 	2. tryLock 
- 	lock이 있는지 확인 후 없다면 획득 있으면 unlock, 매개변수를 통하여 시간을 줄 수도 있음.
 
 
 ***
@@ -118,7 +110,24 @@
 
     lock반납 후 blocekd상태가 됨.
 
-  # ReentrantLock, Condition 
+  ## ReentrantLock Class(LockSupport 클래스가 내부동작에 활용 ), Condition
+
+	lock interface를 상속받아 synchronized를 편하게 다룰 수 있는 구현체이다.
+
+ 	1. lock
+  	thread가 실행 중이라면 다른 thread가 접근하지 못하게 해준다.
+	
+ 	2. tryLock 
+ 	lock이 있는지 확인 후 없다면 획득 있으면 unlock, 매개변수를 통하여 시간을 줄 수도 있음.
+
+    3. Conditon
+    wait(), notify() 유사한 기능을 제공
+    await(), signal(), signalAll() 사용으로 스레드 간 통신을 제어하는 객체
+
+
+  ## 동시성 Collection
+     
+    
 
  ***
 

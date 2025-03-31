@@ -27,7 +27,6 @@ public class ReentrantLockToBankAccountV2 implements BankAccountMethod {
             }
 
             try{
-
                 if (balance < amount) {
                     System.out.println("[출금실패]");
                     return false;

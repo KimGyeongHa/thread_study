@@ -34,7 +34,6 @@ public class AutomaticMain {
             thread.join();
         }
 
-
         System.out.println(atomicInteger.get());
 
     }
