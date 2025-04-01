@@ -1,6 +1,6 @@
 # process thread 
 
-한개의 process내에는 한 개 이상의 thread가 반드시 존재해야한다.
+    한개의 process내에는 한 개 이상의 thread가 반드시 존재해야한다.
 
 ## 스케줄링
 
@@ -78,8 +78,6 @@
  	Monitor lock 사용
 
 
-
-
 ***
 
 # 메모리의 가시성
@@ -91,13 +89,15 @@
     단, 복합 연산에 관한 값은 보장되지 않음.
     
  
-  ***
+***
 
   # 임계영역
 
  	여러 스레드가 동시에 접근하면 데이터불일치나 예상치 못한 동작이
 	발생할 수 있는 위험이 있는 코드부분
   
+***
+
   # Monitor lock 사용 시 sleep, wait, notify
 
     sleep은 lock을 반납하지 않고 대기.
@@ -127,7 +127,29 @@
 
   ## 동시성 Collection
      
+    1. Collections.synchronizedXXX
+      syncronized블록을 사용하여 전체 lock이 걸려서 느리다.
     
+    2. concurrent 패키지 동시성 패키지
+      
+      빠른 읽기 (List) -> CopyOnWriteArrayList
+      작은 Set, 변경 적음 ->  CopyOnWriteArraySet
+      빠른 큐 (락 없음) ->  ConcurrentLinkedQueue
+      크기 제한 큐 ->  ArrayBlockingQueue
+      빠른 Map (해시 기반) -> ConcurrentHashMap
+      정렬된 Map 필요 -> ConcurrentSkipListMap
+
+***
+  ## Executor 프레임워크
+    
+    멀티스레딩 작업을 쉽게 관리하고 비동기 작업을 처리하기 위해 제공되는 스레드 풀 기반의 API
+
+
+  ## Callable
+
+    runnable은 thread종료 전까지 return값을 받을 수 없는 반면, callable은 return값을 받을 수 있음.
+    
+  ##   
 
  ***
 

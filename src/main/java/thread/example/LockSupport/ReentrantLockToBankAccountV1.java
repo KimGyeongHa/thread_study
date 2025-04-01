@@ -32,7 +32,6 @@ public class ReentrantLockToBankAccountV1 implements BankAccountMethod {
             }finally {
                 reentrantLock.unlock();
             }
-
         }
 
         @Override
