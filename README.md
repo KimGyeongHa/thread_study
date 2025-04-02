@@ -1,6 +1,4 @@
-# process thread 
-
-    한개의 process내에는 한 개 이상의 thread가 반드시 존재해야한다.
+# Thread 시작
 
 ## 스케줄링
 
@@ -59,14 +57,15 @@
 
 ***
 
-# THREAD시 이용하는 CLASS 또는 키워드
+## 메모리의 가시성
 
-## java.util.concurrent
+	한 스레드의 변경 값이 다른 스레드에 언제 반영되는가에 대한 문제
+	주로 컨텍스트 스위칭이 일어나는 과정에서 반영되지만 100%는 아니다.
+	
+	volatile 캐시메모리에 접근하지 않고 메인메모리를 바로 사용하여 가시성 문제를 해결할 수 있다.
+    단, 복합 연산에 관한 값은 보장되지 않음.
 
-	동시성을 효율적으로 관리하기 위한 유틸리티를 제공하는 클래스
-
-
-## volatile  
+## volatile
 
 	여러 스레드가 동시에 접근할 때 사용하는 키워드
 
@@ -76,29 +75,17 @@
 	메모리 가시성 문제도 synchronized안에서는 해결됨.
 	여러개의 쓰레드가 하나의 인스턴스에 접근 시 락을 먼저 가진 쓰레드에서 먼저 실행.
  	Monitor lock 사용
-
-
-***
-
-# 메모리의 가시성
-
-	한 스레드의 변경 값이 다른 스레드에 언제 반영되는가에 대한 문제
-	주로 컨텍스트 스위칭이 일어나는 과정에서 반영되지만 100%는 아니다.
-	
-	volatile 캐시메모리에 접근하지 않고 메인메모리를 바로 사용하여 가시성 문제를 해결할 수 있다.
-    단, 복합 연산에 관한 값은 보장되지 않음.
-    
  
 ***
 
-  # 임계영역
+  ## 임계영역
 
  	여러 스레드가 동시에 접근하면 데이터불일치나 예상치 못한 동작이
 	발생할 수 있는 위험이 있는 코드부분
   
 ***
 
-  # Monitor lock 사용 시 sleep, wait, notify
+  ## Monitor lock 사용 시 sleep, wait, notify
 
     sleep은 lock을 반납하지 않고 대기.
 
@@ -110,7 +97,7 @@
 
     lock반납 후 blocekd상태가 됨.
 
-  ## ReentrantLock Class(LockSupport 클래스가 내부동작에 활용 ), Condition
+  ## ReentrantLock Class(LockSupport 클래스가 내부동작에 활용 ), Condition 객체
 
 	lock interface를 상속받아 synchronized를 편하게 다룰 수 있는 구현체이다.
 
@@ -120,13 +107,14 @@
  	2. tryLock 
  	lock이 있는지 확인 후 없다면 획득 있으면 unlock, 매개변수를 통하여 시간을 줄 수도 있음.
 
-    3. Conditon
+    Conditon
     wait(), notify() 유사한 기능을 제공
     await(), signal(), signalAll() 사용으로 스레드 간 통신을 제어하는 객체
 
+***
 
   ## 동시성 Collection
-     
+
     1. Collections.synchronizedXXX
       syncronized블록을 사용하여 전체 lock이 걸려서 느리다.
     
@@ -138,16 +126,71 @@
       크기 제한 큐 ->  ArrayBlockingQueue
       빠른 Map (해시 기반) -> ConcurrentHashMap
       정렬된 Map 필요 -> ConcurrentSkipListMap
+  
+   ## java.util.concurrent
+	동시성을 효율적으로 관리하기 위한 유틸리티를 제공하는 클래스
 
 ***
   ## Executor 프레임워크
     
     멀티스레딩 작업을 쉽게 관리하고 비동기 작업을 처리하기 위해 제공되는 스레드 풀 기반의 API
+    
+    shutdown() → 새로운 작업을 받지 않도록 하고, 기존 작업이 끝날 때까지 기다림.
+    awaitTermination(timeout) → 일정 시간 동안 Executor가 종료되기를 기다림.
+    shutdownNow() → 실행 중인 작업을 강제 종료 시도 (하지만 즉시 종료되는 건 아님).
+
+    Thread Pool Executor 설정값
+
+    corePoolSize ->	풀에서 항상 유지되는 최소 스레드 개수
+    maximumPoolSize ->	풀에서 허용하는 최대 스레드 개수
+    keepAliveTime -> corePoolSize 초과 스레드가 유휴 상태일 때 제거되기 전까지의 대기 시간
+    workQueue -> 대기열 크기, 대기할 수 있는 작업 개수를 결정
+
+    interrupt를 받을 수 없는 로직은 강제종료 해주어야함.
+
+# Thread Pool 전략
+
+    1. 고정 풀 전략
+
+    newFixedThreadPool 내부
+    new ThreadPoolExecutor(nThreads, nThreads,0L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>())
+
+    newFixedThreadPool로 pool size를 고정하여 pool size보다 초과 한 값은 queue에 대기 후 실행
+    이용자가 늘어날 시 대기시간 증가
+
+    2. 캐시 풀 전략
+
+    newCachedThreadPool 내부
+    new ThreadPool(0, Integer.MAX_VALUE, 60L, Times.SECONDS, new SynchronousQueue<Runnable>())
+    최소 스레드 풀 크기를 정하지 않고 모든 값은 새로운 스레드를 풀에 만들고 실행,
+    모든 작업 종료 시 정해진 시간동안 작업이 생성되지 않으면 스레드 풀에 적재된 스레드 제거
+    이용자가 늘어날 시 서버과부화 위험
+
+
+    3. 단일 스레드 전략
+
+    newSingleThreadExecutor -> 단일 스레드 사용 시 이용, 순차적 처리에 사용
+
+    4. 스케줄링 전략
+
+    newScheduledThreadPool -> 주기적으로 처리해야할 값이 있을때 사용
+
+    5. 사용자 정의 풀 전략
+
+    CPU 사양에 맞게 pool size, queue size 조정 후 pool size 초과 시 queue에 대기 queue초과 시 
+    maximum pool size 까지 가동, maximum pool size 와 queue size 초과 시 
+    RejectedExecutionException으로 예외처리.
+    queue 사이즈 미지정으로 인한 오류조심.
+    
+    
+    
 
 
   ## Callable
 
-    runnable은 thread종료 전까지 return값을 받을 수 없는 반면, callable은 return값을 받을 수 있음.
+    runnable과 같이 멀티 스레드 안의 작업을 정의하는데 이용
+    1. runnable과 다르게 return값이 존재.
+    2. exception을 받을 수 있음.
     
   ##   
 

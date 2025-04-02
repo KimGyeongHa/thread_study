@@ -4,7 +4,11 @@ import java.util.concurrent.Callable;
 
 public class FutureCustomerTaskImpl implements FutureCustomerTask {
 
-    private Customer customer = new Customer();
+    private Customer customer;
+
+    public FutureCustomerTaskImpl(Customer customer) {
+        this.customer = customer;
+    }
 
     public Callable<Customer> setDelivery() {
         return new Callable<Customer>() {
