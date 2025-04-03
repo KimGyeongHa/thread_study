@@ -8,9 +8,6 @@
 	멀티코어 스케줄링
 	스케줄링 큐에 있는 thread를 여러개의 코어에서 실행
 
-## 프로세스 
-	실행중인 프로그램의 인스턴스
-
 ## 컨텍스트 스위칭
 	thread 여러개 실행 시 이전에 실행하던 값의 주소를 기억하고
 	다음 thread를 실행하다 다시 돌아올 떄 실행하던 주소값을
@@ -139,16 +136,22 @@
     awaitTermination(timeout) → 일정 시간 동안 Executor가 종료되기를 기다림.
     shutdownNow() → 실행 중인 작업을 강제 종료 시도 (하지만 즉시 종료되는 건 아님).
 
+    interrupt를 받을 수 없는 로직은 강제종료 해주어야함.
+
+    Callable 사용하여 Future 객체로 return값을 반환 받을 수 있음.
+    Future get() 사용 시 blocking이 된다.
+
+# ExecutorService Thread Pool 전략
+
     Thread Pool Executor 설정값
+
+    new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, TimeUnit.xxx, workQueue, RejectHandler)
+    를 사용하여 사용자 정의로 제어가능
 
     corePoolSize ->	풀에서 항상 유지되는 최소 스레드 개수
     maximumPoolSize ->	풀에서 허용하는 최대 스레드 개수
     keepAliveTime -> corePoolSize 초과 스레드가 유휴 상태일 때 제거되기 전까지의 대기 시간
     workQueue -> 대기열 크기, 대기할 수 있는 작업 개수를 결정
-
-    interrupt를 받을 수 없는 로직은 강제종료 해주어야함.
-
-# Thread Pool 전략
 
     1. 고정 풀 전략
 
@@ -181,9 +184,6 @@
     maximum pool size 까지 가동, maximum pool size 와 queue size 초과 시 
     RejectedExecutionException으로 예외처리.
     queue 사이즈 미지정으로 인한 오류조심.
-    
-    
-    
 
 
   ## Callable
@@ -192,7 +192,22 @@
     1. runnable과 다르게 return값이 존재.
     2. exception을 받을 수 있음.
     
-  ##   
+***
+## ExecutorService RejectHandler(오류제어)
+
+    AbortPolicy -> default값으로 모든 size 초과 시 RejectedExecutionException발생
+    CallerRunsPolicy -> RejectedExecutionException 대신 해당 일을 시킨 thread가 대신해서 일을하게함. 
+    사용자 정의 -> RejectedExecutionHandler를 상속받아 재정의하여 사용.
+
+
+## CompletableFuture
+
+    Java의 비동기 처리 API
+    👉 Future의 한계를 보완하고, 비동기 작업을 체이닝(연결)하여 쉽게 다룰 수 있도록 한 클래스.
+    👉 멀티스레드 환경에서 비동기 작업을 수행하고, 콜백을 체이닝하여 가독성을 높이는 데 사용.
+
+    runAsync() -> 독립적인 백그라운드 작업 또는 다음 작업에서 결과를 기다리지 않고 다른작업을 수행 시 사용
+    supplyAsync() 
 
  ***
 
