@@ -189,6 +189,7 @@
   ## Callable
 
     runnable과 같이 멀티 스레드 안의 작업을 정의하는데 이용
+
     1. runnable과 다르게 return값이 존재.
     2. exception을 받을 수 있음.
     
@@ -199,15 +200,53 @@
     CallerRunsPolicy -> RejectedExecutionException 대신 해당 일을 시킨 thread가 대신해서 일을하게함. 
     사용자 정의 -> RejectedExecutionHandler를 상속받아 재정의하여 사용.
 
-
+***
 ## CompletableFuture
 
     Java의 비동기 처리 API
+
     👉 Future의 한계를 보완하고, 비동기 작업을 체이닝(연결)하여 쉽게 다룰 수 있도록 한 클래스.
     👉 멀티스레드 환경에서 비동기 작업을 수행하고, 콜백을 체이닝하여 가독성을 높이는 데 사용.
+    👉 ForkJoinPool 또는 Exectuor를 활용하여 특정 thread pool 이용가능
+   
 
-    runAsync() -> 독립적인 백그라운드 작업 또는 다음 작업에서 결과를 기다리지 않고 다른작업을 수행 시 사용
-    supplyAsync() 
+# 시작
+
+    👉runAsync
+
+    1. 결과값이 필요하지 않은 비동기 작업에 사용
+    2. runnable을 인자로 받으며 return값이 존재하지 않음.
+    
+    👉supplyAsync
+
+    1. 결과가 필요한 비동기 작업에 사용
+    2. Supplier를 인자로 받으며, <T>를 return함.
+  
+# 연산 
+    👉thenApply(Async) 
+
+    1. 이전 처리의 결과가 이미 처리 된 상태라면 동기로 실행, 끝나지 않았다면 비동기로 실행
+    (비동기로 실행하던 이전 처리 결과가 이미 처리 된 상태라면, 해당 로직을 실행시킨 thread가 받아서 실행하는 부분을 동기로 봄.)
+    
+    2. 처리 결과를 다음 단계로 전달 
+
+    3. thenApply 시 현재 스레드에서 작업진행, thenApplyAsync 는 새로운 thread에서 작업진행
+      
+    👉thenAccept(Asnyc)
+
+    1. 이전 처리의 결과를 소비하고 새로운 로직을 추가 수행한다.
+    2. 처리 결과를 다음단계로 전달 할 수 없음.
+
+    👉thenRun(Asnyc)
+
+    1. 이전 처리 결과를 무시하고 새로운 로직을 수행한다.
+    2. 작업이 끝난 후 이전 처리결과와 상관없이 로직을 지속해서 수행할 떄 사용.
+
+    👉thenCompose(Asnyc)
+
+    1. 작업이 완료 된 CompletableFuture의 반환 값으로 다음 작업 수행. 연속적인 비동기 작업 실행
+    2. 새로운 CompletableFuture 객체로 반환
+
 
  ***
 
