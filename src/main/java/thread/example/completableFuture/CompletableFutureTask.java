@@ -1,9 +1,5 @@
 package thread.example.completableFuture;
 
-
-import thread.example.Utils.ThreadSleepUtils;
-
-import java.sql.Timestamp;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -48,7 +44,6 @@ public class CompletableFutureTask {
                 System.out.println("[비동기 처리 처리완료]");
             });
 
-
             /* CompletableFuture 결과 값 두개 결합하여 반환 시작 */
             CompletableFuture<String> combineFirstFuture = CompletableFuture.supplyAsync(new Supplier<String>() {
                 @Override
@@ -74,6 +69,7 @@ public class CompletableFutureTask {
             });
 
             combineFuture.join();
+
 
             long end = System.currentTimeMillis();
 

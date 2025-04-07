@@ -199,9 +199,9 @@
     AbortPolicy -> default값으로 모든 size 초과 시 RejectedExecutionException발생
     CallerRunsPolicy -> RejectedExecutionException 대신 해당 일을 시킨 thread가 대신해서 일을하게함. 
     사용자 정의 -> RejectedExecutionHandler를 상속받아 재정의하여 사용.
-
 ***
-## CompletableFuture
+
+# CompletableFuture
 
     Java의 비동기 처리 API
 
@@ -210,43 +210,74 @@
     👉 ForkJoinPool 또는 Exectuor를 활용하여 특정 thread pool 이용가능
    
 
-# 시작
+## 시작
 
     👉runAsync
 
-    1. 결과값이 필요하지 않은 비동기 작업에 사용
-    2. runnable을 인자로 받으며 return값이 존재하지 않음.
+      1. 결과값이 필요하지 않은 비동기 작업에 사용
+      2. runnable을 인자로 받으며 return값이 존재하지 않음.
     
     👉supplyAsync
 
-    1. 결과가 필요한 비동기 작업에 사용
-    2. Supplier를 인자로 받으며, <T>를 return함.
+      1. 결과가 필요한 비동기 작업에 사용
+      2. Supplier를 인자로 받으며, <T>를 return함.
   
-# 연산 
+## 연산 
     👉thenApply(Async) 
 
-    1. 이전 처리의 결과가 이미 처리 된 상태라면 동기로 실행, 끝나지 않았다면 비동기로 실행
-    (비동기로 실행하던 이전 처리 결과가 이미 처리 된 상태라면, 해당 로직을 실행시킨 thread가 받아서 실행하는 부분을 동기로 봄.)
+      1. 이전 처리의 결과가 이미 처리 된 상태라면 동기로 실행, 끝나지 않았다면 비동기로 실행
+      (비동기로 실행하던 이전 처리 결과가 이미 처리 된 상태라면, 해당 로직을 실행시킨 thread가 받아서 실행하는 부분을 동기로 봄.)
     
-    2. 처리 결과를 다음 단계로 전달 
+      2. 처리 결과를 다음 단계로 전달 
 
-    3. thenApply 시 현재 스레드에서 작업진행, thenApplyAsync 는 새로운 thread에서 작업진행
+      3. thenApply 시 현재 스레드에서 작업진행, thenApplyAsync 는 새로운 thread에서 작업진행
       
-    👉thenAccept(Asnyc)
+    👉 thenAccept(Asnyc)
 
-    1. 이전 처리의 결과를 소비하고 새로운 로직을 추가 수행한다.
-    2. 처리 결과를 다음단계로 전달 할 수 없음.
+      1. 이전 처리의 결과를 소비하고 새로운 로직을 추가 수행한다.
+      2. 처리 결과를 다음단계로 전달 할 수 없음.
 
-    👉thenRun(Asnyc)
+    👉 thenRun(Asnyc)
 
-    1. 이전 처리 결과를 무시하고 새로운 로직을 수행한다.
-    2. 작업이 끝난 후 이전 처리결과와 상관없이 로직을 지속해서 수행할 떄 사용.
+      1. 이전 처리 결과를 무시하고 새로운 로직을 수행한다.
+      2. 작업이 끝난 후 이전 처리결과와 상관없이 로직을 지속해서 수행할 떄 사용.
 
-    👉thenCompose(Asnyc)
+    👉 thenCompose(Asnyc)
 
-    1. 작업이 완료 된 CompletableFuture의 반환 값으로 다음 작업 수행. 연속적인 비동기 작업 실행
-    2. 새로운 CompletableFuture 객체로 반환
+      1. 작업이 완료 된 CompletableFuture의 반환 값으로 다음 작업 수행. 연속적인 비동기 작업 실행
+      2. 새로운 CompletableFuture 객체로 반환
 
+
+    👉 thenCombine(Asnyc)
+
+      1. 비동기 작업 두개를 병렬로 실행.
+      2. 두개의 작업 후 하나의 return값을 반환.
+
+    👉 allOf
+
+      1. 여러개의 비동기 작업을 한번에 실행 (Executor의 invokeAll와 동일)
+      2. 여러개의 비동기 값을 조합하여 이용할 때 사용
+
+    👉 anyOf
+
+      1. 여러개의 비동기 작업 중 하나만 실행 (Executor의 invokeAny 동일)
+
+
+## 예외처리
+
+    👉 Exceptionally(Async)
+
+      1. 예외 발생 시 해당 예외를 처리하고, 새로운 값이나 대체 예외로 반환할 수 있음.
+
+    👉 Hadle(Async)
+      1. 결과와 예외처리를 둘 다 받을 수 있는 메서드
+      2. 첫 번쨰 인수 값은 성공 시 반환값 ,두 번째 인수 값은 실패 시 반환값을 받는다.
+      
+    👉 WhenComplete(Async)
+      1. handle과 같이 예외처리를 둘 다 받을 수 있는 메서드
+      2. 예외, return 값 수정 불가능, 예외확인용도로 사용
+
+      Async를 미사용 시 기존 thread에서 처리, 사용 시 새로운 thread에서 처리 
 
  ***
 
