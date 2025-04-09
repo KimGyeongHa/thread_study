@@ -1,6 +1,11 @@
 package thread.example.completableFuture;
 
+import thread.example.Utils.ThreadSleepUtils;
+
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+
+import static thread.example.Utils.ThreadSleepUtils.sleep;
 
 public class CompletableFutureException {
 
@@ -11,7 +16,7 @@ public class CompletableFutureException {
 
 
         // handle
-        CompletableFuture<Integer> exceptionFuture1 = exceptionTask.getData1(10);
+       /* CompletableFuture<Integer> exceptionFuture1 = exceptionTask.getData1(10);
         CompletableFuture<Integer> exceptionFuture2 = exceptionTask.getData2(exceptionFuture1.join()).handle((result,exception) ->{
             if (exception != null) {
                 throw new RuntimeException("handle 오류발생");
@@ -20,18 +25,25 @@ public class CompletableFutureException {
             }
         });
 
-        System.out.println(exceptionFuture2.join());
+        System.out.println(exceptionFuture2.join());*/
 
 
         // whenComplete
-        exceptionTask.getData2(10).whenComplete((result, exception) -> {
+        CompletableFuture<Integer> whenCompleteFuture = exceptionTask.getData2(10).whenComplete((result, exception) -> {
             if (exception != null) {
-                throw new RuntimeException("whenComplete 오류발생");
+                System.out.println("예외처리 오류위치");
             } else {
                 System.out.println(result * 2);
             }
-        }).join();
+        });
 
+        try{
+            whenCompleteFuture.join();
+        }catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }catch (CompletionException e){
+            System.out.println(e.getMessage());
+        }
 
 
     }
@@ -46,7 +58,7 @@ public class CompletableFutureException {
         }
 
         private CompletableFuture<Integer> getData2(Integer value){
-            return CompletableFuture.supplyAsync(()-> value/0);
+            return CompletableFuture.supplyAsync(()-> value/5);
         };
     }
 

@@ -275,9 +275,28 @@
       
     👉 WhenComplete(Async)
       1. handle과 같이 예외처리를 둘 다 받을 수 있는 메서드
-      2. 예외, return 값 수정 불가능, 예외확인용도로 사용
+      2. exception이 있을 때 예외처리를 넘겨주지 않으며, 후처리를 위해 사용하고, 예외처리는 따로 설정해주어야함.
 
       Async를 미사용 시 기존 thread에서 처리, 사용 시 새로운 thread에서 처리 
+
+
+## 완료처리
+
+     👉 Complete
+         
+       1. 강제적으로 값을 직접 저장해서 해당 completableFuture를 완료하고자 할 떄 사용
+   
+      👉 CompletedFuture
+
+       1. 비동기 작업을 수행하지 않고 미리 계산 된 결과를 반환받을 떄 사용
+
+      👉 CompleteOnTimeout
+
+       1. 특정 반환 값과 시간 설정 후 특정 시간동안 작업이 종료되지 않으면 특정 반환값을 반환    
+
+      👉 isCompletedExceptionally
+
+       1. 예외로 인한 종료를 했을 때 true or false를 반환해줌
 
  ***
 
