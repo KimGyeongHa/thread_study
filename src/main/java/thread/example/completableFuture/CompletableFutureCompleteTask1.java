@@ -1,14 +1,11 @@
 package thread.example.completableFuture;
 
-import thread.example.Utils.ThreadSleepUtils;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
 
 import static thread.example.Utils.ThreadSleepUtils.*;
 
-public class CompletableFutureComplete {
+public class CompletableFutureCompleteTask1 {
 
     public static void main(String[] args) {
 
