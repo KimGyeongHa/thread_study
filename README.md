@@ -298,6 +298,9 @@
 
        1. 예외로 인한 종료를 했을 때 true or false를 반환해줌
 
+## 완료되지 않은 completableFuture
+    1. 완료되지 않은 completableFuture가 있다면 무한대기, result 또는 AltResult를 반환해줘야함. 
+
  ***
 
 
