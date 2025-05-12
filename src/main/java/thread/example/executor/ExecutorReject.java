@@ -1,12 +1,8 @@
 package thread.example.executor;
 
-import thread.example.executor.utils.ExecutorUtils;
 import thread.example.task.SleepRunnable;
-
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import static thread.example.executor.utils.ExecutorUtils.*;
 
 public class ExecutorReject {
 
