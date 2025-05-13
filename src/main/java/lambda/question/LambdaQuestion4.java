@@ -1,9 +1,5 @@
 package lambda.question;
 
-
-import java.util.List;
-import java.util.function.BiConsumer;
-
 @FunctionalInterface
 interface LambdaMap{
     void map(String str, Question4Procedure  procedure);
@@ -11,14 +7,16 @@ interface LambdaMap{
 
 public class LambdaQuestion4 {
     public static void main(String[] args) {
+
         LambdaMap lambdaMap1 = (String str, Question4Procedure procedure) -> {
             char[] charArray = str.toCharArray();
-            StringBuffer br =new StringBuffer();
+            StringBuffer br = new StringBuffer();
             for (char c : charArray) {
                 br.append(procedure.replaceStr(c));
             }
             System.out.println(br.toString());
         };
+
         lambdaMap1.map("hello", new Question4Procedure());
 
 
@@ -27,7 +25,6 @@ public class LambdaQuestion4 {
         };
 
         lambdaMap2.map("hello", new Question4Procedure());
-
 
     }
 }
