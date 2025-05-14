@@ -11,77 +11,78 @@ public class CompletableFutureTask {
 
     public static void main(String[] args) {
 
-        try(ExecutorService executorService = Executors.newFixedThreadPool(2)){
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
 
-            CompletableFuture<String> getFirstFuture = CompletableFuture
-                    .supplyAsync(new Supplier<String>() {
-                        @Override
-                        public String get() {
-                            return Thread.currentThread().getName();
-                        }
-                    }, executorService)
-                    .thenApplyAsync(n -> {
-                        System.out.println(n);
-                        System.out.println("[비동기 처리결과] :" + Thread.currentThread().getName());
-                        return n + " 스레드 사용";
-                    }, executorService);
-
-            CompletableFuture<String> getSecondFuture = getFirstFuture.thenCompose(n -> {
-                return CompletableFuture.supplyAsync(new Supplier<String>() {
+        CompletableFuture<String> getFirstFuture = CompletableFuture
+                .supplyAsync(new Supplier<String>() {
                     @Override
                     public String get() {
-                        System.out.println("[compose로 연결된 thread] : " + Thread.currentThread().getName());
-                        return n + " compose로 새로운 completableFuture와 연결";
+                        return Thread.currentThread().getName();
                     }
-                },executorService);
-            });
+                }, executorService)
+                .thenApplyAsync(n -> {
+                    System.out.println(n);
+                    System.out.println("[비동기 처리결과] :" + Thread.currentThread().getName());
+                    return n + " 스레드 사용";
+                }, executorService);
 
-            getSecondFuture.thenAccept(System.out::println);
-
-            getSecondFuture.join();
-
-            getSecondFuture.thenRun(() ->{
-                System.out.println("[비동기 처리 처리완료]");
-            });
-
-            /* CompletableFuture 결과 값 두개 결합하여 반환 시작 */
-            CompletableFuture<String> combineFirstFuture = CompletableFuture.supplyAsync(new Supplier<String>() {
+        CompletableFuture<String> getSecondFuture = getFirstFuture.thenCompose(n -> {
+            return CompletableFuture.supplyAsync(new Supplier<String>() {
                 @Override
                 public String get() {
-                    sleep(3000);
-                    return "a";
+                    System.out.println("[compose로 연결된 thread] : " + Thread.currentThread().getName());
+                    return n + " compose로 새로운 completableFuture와 연결";
                 }
-            });
+            },executorService);
+        });
 
-            CompletableFuture<String> combineSecondFuture = CompletableFuture.supplyAsync(new Supplier<String>() {
-                @Override
-                public String get() {
-                    sleep(3000);
-                    return "b";
-                }
-            });
+        getSecondFuture.thenAccept(System.out::println);
 
-            long start = System.currentTimeMillis();
+        getSecondFuture.join();
 
-            // 병렬처리
-            CompletableFuture<String> combineFuture = combineFirstFuture.thenCombine(combineSecondFuture, (result1, result2) -> {
-                return result1 + result2;
-            });
+        getSecondFuture.thenRun(() ->{
+            System.out.println("[비동기 처리 처리완료]");
+        });
 
-            combineFuture.join();
+        /* CompletableFuture 결과 값 두개 결합하여 반환 시작 */
+        CompletableFuture<String> combineFirstFuture = CompletableFuture.supplyAsync(new Supplier<String>() {
+            @Override
+            public String get() {
+                sleep(3000);
+                return "a";
+            }
+        });
+
+        CompletableFuture<String> combineSecondFuture = CompletableFuture.supplyAsync(new Supplier<String>() {
+            @Override
+            public String get() {
+                sleep(3000);
+                return "b";
+            }
+        });
+
+        long start = System.currentTimeMillis();
+
+        // 병렬처리
+        CompletableFuture<String> combineFuture = combineFirstFuture.thenCombine(combineSecondFuture, (result1, result2) -> {
+            return result1 + result2;
+        });
+
+        combineFuture.join();
 
 
-            long end = System.currentTimeMillis();
+        long end = System.currentTimeMillis();
 
-            System.out.println((end - start) / 1000 + "s");
+        System.out.println((end - start) / 1000 + "s");
 
-            combineFuture.thenAccept(System.out::println);
+        combineFuture.thenAccept(System.out::println);
 
-            /* CompletableFuture 결과 값 두개 결합하여 반환 끝 */
+        /* CompletableFuture 결과 값 두개 결합하여 반환 끝 */
 
-        };
+        executorService.shutdown();
+    };
 
-    }
+
 
 
 

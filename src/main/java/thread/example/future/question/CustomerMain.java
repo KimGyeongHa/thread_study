@@ -6,7 +6,8 @@ import java.util.concurrent.*;
 public class CustomerMain {
 
     public static void main(String[] args) {
-        try(ExecutorService ex = Executors.newFixedThreadPool(3)){
+        try{
+            ExecutorService ex = Executors.newFixedThreadPool(3);
             Customer customer1 = new Customer();
             FutureCustomerTask futureTask = new FutureCustomerTaskImpl(customer1);
 
@@ -15,6 +16,7 @@ public class CustomerMain {
 
             System.out.println(customer1.toString());
 
+            ex.shutdown();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
