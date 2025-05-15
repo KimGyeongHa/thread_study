@@ -4,6 +4,7 @@ package lambda.question;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static lambda.question.CustomMapper.*;
@@ -37,6 +38,14 @@ public class FilterPredicate {
 
         System.out.println(filterMap.toString());
 
+        CustomStream<String> stream1 = new CustomStream<>(List.of("1", "12", "123"));
+        CustomStream<Integer> stream2 = new CustomStream<>(List.of(1, 12, 123));
+
+        List<String> list = stream1.filter(s -> s.length() > 1).map(s -> s + "***").getList();
+        List<Integer> list1 = stream2.map(s -> String.valueOf(s)).map(s -> Integer.parseInt(s) * 3).getList();
+
+        System.out.println(list.toString());
+        System.out.println(list1.toString());
 
     }
 

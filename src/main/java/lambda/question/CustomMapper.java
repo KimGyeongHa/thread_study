@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.*;
 
-public class CustomMapper {
+public class CustomMapper<T> {
 
     public static <T> List<T> filter(List<T> list, Predicate<T> predicate){
         List<T> resultList = new ArrayList<>();
@@ -19,11 +19,6 @@ public class CustomMapper {
     public static <T,R> R map(T t, Function<T,R> function){
         return function.apply(t);
     }
-
-
-
-
-
 
 
 
