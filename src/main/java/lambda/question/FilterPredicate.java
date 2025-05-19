@@ -13,6 +13,7 @@ import static lambda.question.CustomMapper.*;
 public class FilterPredicate {
 
     public static void main(String[] args) {
+
         Predicate<Integer> oddPredicate = (i) -> i % 2 == 1;
         Predicate<Integer> evenPredicate = (i) -> i % 2 == 0;
 
@@ -38,14 +39,22 @@ public class FilterPredicate {
 
         System.out.println(filterMap.toString());
 
-        CustomStream<String> stream1 = new CustomStream<>(List.of("1", "12", "123"));
+       /* CustomStream<String> stream1 = new CustomStream<>(List.of("1", "12", "123"));
         CustomStream<Integer> stream2 = new CustomStream<>(List.of(1, 12, 123));
 
         List<String> list = stream1.filter(s -> s.length() > 1).map(s -> s + "***").getList();
         List<Integer> list1 = stream2.map(s -> String.valueOf(s)).map(s -> Integer.parseInt(s) * 3).getList();
 
         System.out.println(list.toString());
-        System.out.println(list1.toString());
+        System.out.println(list1.toString());*/
+
+        List<String> strings = List.of("1", "12", "123");
+
+        CustomStream.of(strings)
+                .map(s -> s + "***")
+                .filter(s -> s.length() > 5)
+                .map(s -> s.substring(0,1))
+                .forEach(System.out::println);
 
     }
 

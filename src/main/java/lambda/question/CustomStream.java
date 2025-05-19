@@ -2,6 +2,7 @@ package lambda.question;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -9,12 +10,12 @@ public class CustomStream<T>  {
 
     private List<T> list = new ArrayList<>();
 
-    public CustomStream(List<T> list) {
+    private CustomStream(List<T> list) {
         this.list = list;
     }
 
-    public static CustomStream of(){
-        return new CustomStream<>(new ArrayList<>());
+    public static <T> CustomStream<T> of(List<T> list){
+        return new CustomStream<>(list);
     }
 
     public CustomStream<T> filter(Predicate<T> predicate) {
@@ -33,7 +34,14 @@ public class CustomStream<T>  {
         return new CustomStream<>(returnList);
     }
 
+    public void forEach(Consumer<T> consumer){
+        for (T t : list){
+            consumer.accept(t);
+        }
+    }
+
     public List<T> getList(){
         return list;
     }
+
 }
