@@ -27,8 +27,6 @@ public class MethodRef {
         System.out.println(introduceFunction.apply(person4));
         System.out.println(introduceFunction.apply(person5));
 
-
-
     }
 
 
