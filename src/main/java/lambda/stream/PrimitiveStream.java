@@ -46,15 +46,44 @@ public class PrimitiveStream {
                 new Student("KMM", 3, 30)
         );
 
-        students.stream().collect(
-            Collectors.groupingBy(
-                Student::getGrade,
-                Collectors.maxBy(
-                    Comparator.comparingInt(Student::getScore).thenComparing(Student::getScore)
+        // group 으로 된 값을 특정한 형태로 변경하고 싶으떄 mapping
+       /*
+           Map<Integer, List<String>> collect3 = students.stream().collect(
+                    Collectors.groupingBy(
+                            Student::getGrade,
+                            Collectors.mapping(Student::getName, Collectors.toList())
+                    )
+            );
+
+            collect3.forEach((k, v) -> System.out.println(k + " " + v));
+        */
+
+        // downstream 이 후 작업이 필요할 떄 collectingAndThen
+        /*
+            Map<Integer, String> collect1 = students.stream().collect(
+                    Collectors.groupingBy(
+                            Student::getGrade,
+                            Collectors.collectingAndThen(
+                                    Collectors.maxBy(Comparator.comparing(Student::getScore)),
+                                    n -> n.get().getName()
+                            )
+                    )
+            );
+
+            collect1.forEach((k, v) -> System.out.println(k + " " + v));
+        */
+
+        Map<Boolean, List<String>> collect1 = students.stream().collect(
+            Collectors.partitioningBy(
+                n -> n.getGrade() == 1,
+                Collectors.mapping(
+                    Student::getName,
+                    Collectors.toList()
                 )
             )
         );
 
+        collect1.get(true).forEach(System.out::println);
 
     }
 

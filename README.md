@@ -302,6 +302,10 @@
     1. 완료되지 않은 completableFuture가 있다면 무한대기, result 또는 AltResult를 반환해줘야함. 
 
  ***
+ ***
+# STREAM
+
+   1. 다운스트림 컬렉터는 groupingBy(), partitioningBy() 후 추가적인 연산을 위해 사용
 
 
 
