@@ -17,7 +17,8 @@ public class ExecutorCustomStrategy {
 
     public static void main(String[] args)  {
 
-        try(ThreadPoolExecutor ec = new ThreadPoolExecutor(100, 200, 60L, TimeUnit.SECONDS, new ArrayBlockingQueue<>(1000))){
+        try{
+            ThreadPoolExecutor ec = new ThreadPoolExecutor(100, 200, 60L, TimeUnit.SECONDS, new ArrayBlockingQueue<>(1000));
             long start = System.currentTimeMillis();
 
             for (int i = 0; i < THREAD_OVER_POOL_SIZE; i++) {
@@ -29,6 +30,8 @@ public class ExecutorCustomStrategy {
 
             long end = System.currentTimeMillis();
             System.out.println((end - start) / 1000 + "s");
+
+            ec.shutdown();
 
         }catch (RejectedExecutionException e){
             System.out.println("[queue 값 초과로 인한 오류발생] : " + e.getMessage());

@@ -8,7 +8,9 @@ public class ExecutorReject {
 
     public static void main(String[] args) {
 
-        try(ThreadPoolExecutor ec = new ThreadPoolExecutor(1, 1, 20, TimeUnit.SECONDS, new SynchronousQueue<>(), new CustomRejectExecutionPolicy())){
+        try{
+            ThreadPoolExecutor ec = new ThreadPoolExecutor(1, 1, 20, TimeUnit.SECONDS, new SynchronousQueue<>(), new CustomRejectExecutionPolicy());
+
             ec.submit(new SleepRunnable(10));
             ec.submit(new SleepRunnable(10));
             ec.submit(new SleepRunnable(10));

@@ -6,19 +6,20 @@ public class FutureExceptionTask {
 
 
     public static void main(String[] args) {
-        try(ExecutorService ex = Executors.newFixedThreadPool(2)){
+        try{
+            ExecutorService ex = Executors.newFixedThreadPool(2);
 
             Future<String> submit = ex.submit(new FutureExceptionCallable());
-            System.out.println("[Future status] : " + submit.state());
 
             try {
                 String s = submit.get();
-                System.out.println("[Future status] : " + submit.state());
             } catch (InterruptedException | ExecutionException e) {
                 Throwable cause = e.getCause();
                 throw new RuntimeException(cause);
             }
-        };
+
+            ex.shutdown();
+        }catch (Exception e){}
     }
 
     static class FutureExceptionCallable implements Callable<String>{

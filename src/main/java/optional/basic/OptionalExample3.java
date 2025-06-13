@@ -44,7 +44,6 @@ public class OptionalExample3 {
         }
     }
 
-
     static class Delivery{
         private Long id;
         private String status;

@@ -58,6 +58,7 @@ public class Stream1 {
 
         target.stream().flatMap(List::stream).forEach(n -> System.out.print(n.getName() + " "));
 
+
     }
 
     static class TestClass{

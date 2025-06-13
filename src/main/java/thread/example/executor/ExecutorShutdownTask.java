@@ -9,7 +9,9 @@ import java.util.concurrent.TimeUnit;
 public class ExecutorShutdownTask {
 
     public static void main(String[] args) {
-        try(ExecutorService es = Executors.newFixedThreadPool(4)){
+        try{
+            ExecutorService es = Executors.newFixedThreadPool(4);
+
             es.execute(new SleepRunnable());
             es.execute(new SleepRunnable());
             es.execute(new SleepRunnable());
@@ -17,6 +19,7 @@ public class ExecutorShutdownTask {
 
             awaitTermination(es);
 
+            es.shutdown();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

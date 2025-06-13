@@ -7,21 +7,22 @@ public class FutureCancelTask {
     private final static boolean mayInterruptIfRunning = true;
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        try(ExecutorService es = Executors.newFixedThreadPool(1)){
-            System.out.println("-----[Thread Start]-----");
 
-            Future<String> future = es.submit(new FutureTask());
-            System.out.println("[future status : ]" + future.state());
-            future.cancel(mayInterruptIfRunning);
+        ExecutorService es = Executors.newFixedThreadPool(1);
 
-            if (future.isCancelled()){
-                System.out.println("[future is cancelled]");
-            }
+        System.out.println("-----[Thread Start]-----");
 
-            System.out.println("-----[Thread End]-----");
+        Future<String> future = es.submit(new FutureTask());
 
-            es.shutdown();
-        };
+        future.cancel(mayInterruptIfRunning);
+
+        if (future.isCancelled()){
+            System.out.println("[future is cancelled]");
+        }
+
+        System.out.println("-----[Thread End]-----");
+
+        es.shutdown();
     }
 
 

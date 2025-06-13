@@ -6,7 +6,9 @@ import java.util.concurrent.*;
 public class FutureInvokeAllTask {
 
     public static void main(String[] args) {
-        try(ExecutorService executor = Executors.newFixedThreadPool(3)){
+        try{
+            ExecutorService executor = Executors.newFixedThreadPool(3);
+
             List<Callable<String>> callable = List.of(
                     new FutureInvokeTask().getCallable(),
                     new FutureInvokeTask().getCallable(),
