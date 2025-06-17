@@ -127,6 +127,12 @@
    ## java.util.concurrent
 	동시성을 효율적으로 관리하기 위한 유틸리티를 제공하는 클래스
 
+
+   ## RecursiveTask
+      FORK JOIN POOL과 함께 이용되는 클래스로 병렬작업 수행을 위한 클래스.
+      복잡한 작업을 작은 작업으로 쪼갠 후 동시에 처리, 결과를 합치는데 사용.
+      
+
 ***
   ## Executor 프레임워크
     
@@ -302,10 +308,12 @@
     1. 완료되지 않은 completableFuture가 있다면 무한대기, result 또는 AltResult를 반환해줘야함. 
 
  ***
- ***
 # STREAM
 
    1. 다운스트림 컬렉터는 groupingBy(), partitioningBy() 후 추가적인 연산을 위해 사용
+
+
+***
 
 
 

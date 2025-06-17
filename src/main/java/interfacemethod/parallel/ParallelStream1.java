@@ -36,24 +36,29 @@ public class ParallelStream1 {
             }
         */
 
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
-        List<Future<?>> futures = new ArrayList<>();
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
 
-        for (int i = 0 ; i < 5 ; i++) {
-            Future<?> submit = executorService.submit(new ThreadTask(1, i + 1));
-            futures.add(submit);
-        }
+        /*
+            List<Future<?>> futures = new ArrayList<>();
 
-        for (Future<?> future : futures) {
-            future.get();
-        }
+            for (int i = 0 ; i < 5 ; i++) {
+                Future<?> submit = executorService.submit(new ThreadTask(1, i + 1));
+                futures.add(submit);
+            }
+
+            for (Future<?> future : futures) {
+                future.get();
+            }
+        */
 
         CompletableFuture<?> future = CompletableFuture.supplyAsync(() -> new Supplier<String>() {
             @Override
             public String get() {
                 return "하이하이";
             }
-        }).thenAcceptAsync(n -> n.get(), executorService);
+        }, executorService).thenAccept(n -> System.out.println(n.get()));
+
+        CompletableFuture.supplyAsync(() -> "하이하이2", executorService).thenAccept(System.out::println);
 
         executorService.shutdown();
 
