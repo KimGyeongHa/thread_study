@@ -15,9 +15,7 @@ public class InterfaceMethodExampleImpl {
 
         List<Integer> integers = List.of(1, 2, 3, 4);
         integers.parallelStream().forEach(System.out::println);
-
     }
-
 
     static class InterfaceMethodExample1 implements InterfaceMethodExample {
 

@@ -129,8 +129,11 @@
 
 
    ## RecursiveTask
-      FORK JOIN POOL과 함께 이용되는 클래스로 병렬작업 수행을 위한 클래스.
-      복잡한 작업을 작은 작업으로 쪼갠 후 동시에 처리, 결과를 합치는데 사용.
+     FORK JOIN POOL과 함께 이용되는 클래스로 병렬작업 수행을 위한 클래스.
+     복잡한 작업을 작은 작업으로 쪼갠 후 동시에 처리, 결과를 합치는데 사용.
+      
+      1. fork시 스레드 작업생성
+      2. compute 사용 시 현재 스레드에서 작업실행 
       
 
 ***
@@ -305,6 +308,7 @@
        1. 예외로 인한 종료를 했을 때 true or false를 반환해줌
 
 ## 완료되지 않은 completableFuture
+
     1. 완료되지 않은 completableFuture가 있다면 무한대기, result 또는 AltResult를 반환해줘야함. 
 
  ***

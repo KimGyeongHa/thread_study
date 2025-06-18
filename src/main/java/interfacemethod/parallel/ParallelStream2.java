@@ -10,10 +10,22 @@ public class ParallelStream2 {
     public static void main(String[] args) {
         MyTask myTask = new MyTask(IntStream.of(1, 8).boxed().toList());
         System.out.println(myTask.compute());
+
+        ForkJoinPool forkJoinPool = new ForkJoinPool(2);
+        forkJoinPool.invoke(myTask);
+        forkJoinPool.invoke(myTask);
+        forkJoinPool.invoke(myTask);
+        forkJoinPool.invoke(myTask);
+        forkJoinPool.invoke(myTask);
+        forkJoinPool.invoke(myTask);
+        forkJoinPool.invoke(myTask);
+        forkJoinPool.invoke(myTask);
+
+
+        System.out.println(forkJoinPool);
+
+
     }
-
-
-
 
     static class MyTask extends RecursiveTask<Integer> {
 
@@ -50,7 +62,6 @@ public class ParallelStream2 {
             return result;
         }
     }
-
 
 
 
