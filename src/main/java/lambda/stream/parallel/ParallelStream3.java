@@ -1,4 +1,4 @@
-package interfacemethod.parallel;
+package lambda.stream.parallel;
 
 import java.util.concurrent.ForkJoinPool;
 import java.util.stream.IntStream;

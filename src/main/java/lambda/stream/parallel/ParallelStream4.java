@@ -1,21 +1,26 @@
-package interfacemethod.parallel;
+package lambda.stream.parallel;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ParallelStream4 {
 
     public static void main(String[] args) {
-        List<Integer> list = IntStream.range(1, 8).boxed().toList();
+        List<Integer> list = IntStream.range(1, 100).boxed().toList();
 
         long startTime = System.currentTimeMillis();
 
-        //Integer reduce = list.stream().parallel().map(n -> new MyTask(n).getResult()).reduce(0, (a, b) -> a + b);
+        for (int i = 1 ; i < list.size() ; i++) {
+            Integer reduce = list.stream().parallel().map(n -> new MyTask(n).getResult()).reduce(0, (a, b) -> a + b);
 
-        list.stream().map(n -> new MyTask(n).getResult()).reduce(0 , (a,b) -> a + b);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
+        //Integer reduce = list.stream().map(n -> new MyTask(n).getResult()).reduce(0, Integer::sum);
 
         long endTime = System.currentTimeMillis();
 

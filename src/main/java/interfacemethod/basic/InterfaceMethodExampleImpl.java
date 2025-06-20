@@ -1,10 +1,8 @@
 package interfacemethod.basic;
 
 import java.util.List;
-import java.util.jar.JarInputStream;
 
 public class InterfaceMethodExampleImpl {
-
 
     public static void main(String[] args) {
         InterfaceMethodExample example1 = new InterfaceMethodExample1("김경하1");
